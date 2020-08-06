@@ -30,7 +30,7 @@ def open_policy_yaml_files(path2files: str = "dataset_PrivacyMap/annotations/") 
 
 def save_file_as_json(company_name: str, data: list, path: str = None, category: bool = False) -> None:
     """
-    Save your files as a json format. This file consists information about permissions and their description
+    Save your files as a json format. This file consists information about features and their description
 
     :param company_name: str - set a company name. it's used as a file name
     :param data: str - list of permissions
