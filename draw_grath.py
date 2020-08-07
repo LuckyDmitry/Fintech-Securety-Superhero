@@ -21,7 +21,7 @@ user_feature = choose_feature()
 non_edit = []
 
 
-def edit_companies(list_companies: list):
+def edit_companies(list_companies: list) :
     length = len(list_companies)
 
     if (length - 15) <= 15: #если маленькое число от 16 до 30
@@ -55,68 +55,70 @@ def graph_feature(user_feature):
             graph.add_node(company)
             graph.add_edge(user_feature, company)
 
-            pos = nx.spring_layout(graph, k=0.9, iterations=5000)
-            for n, p in pos.items():
-                graph.nodes[n]['pos'] = p
+        pos = nx.spring_layout(graph, k=0.9, iterations=5000)
+        for n, p in pos.items():
+            graph.nodes[n]['pos'] = p
 
-            edge_trace = go.Scatter(
-                x=[], y=[],
-                line=dict(width=4, color='#888'),
-                hoverinfo='none',
-                mode='lines')
+        edge_trace = go.Scatter(
+            x=[], y=[],
+            line=dict(width=4, color='#888'),
+            hoverinfo='none',
+            mode='lines')
 
-            for edge in graph.edges():
-                x0, y0 = graph.nodes[edge[0]]['pos']
-                x1, y1 = graph.nodes[edge[1]]['pos']
-                edge_trace['x'] += tuple([x0, x1, None])
-                edge_trace['y'] += tuple([y0, y1, None])
+        for edge in graph.edges():
+            x0, y0 = graph.nodes[edge[0]]['pos']
+            x1, y1 = graph.nodes[edge[1]]['pos']
+            edge_trace['x'] += tuple([x0, x1, None])
+            edge_trace['y'] += tuple([y0, y1, None])
 
-            node_trace = go.Scatter(
-                x=[], y=[],
-                text=[],
-                textposition="middle center",
-                textfont=dict(
-                    color="Black",
-                    family="Gravitas One",
-                    size=15,
-                ),
-                mode='markers+text',
-                hoverinfo='text',
-                marker=dict(
-                    showscale=False,
-                    color=["Green"],
-                    size=[],
-                    opacity=[1],
-                    line_width=2))
+        node_trace = go.Scatter(
+            x=[], y=[],
+            text=[],
+            textposition="middle center",
+            textfont=dict(
+                color="Black",
+                family="Gravitas One",
+                size=15,
+            ),
+            mode='markers+text',
+            hovertext=[],
+            hoverinfo='text',
+            marker=dict(
+                showscale=False,
+                color=["Green"],
+                size=[],
+                opacity=[1],
+                line_width=2))
 
-            for node in graph.nodes():
-                x, y = graph.nodes[node]['pos']
-                node_trace['x'] += tuple([x])
-                node_trace['y'] += tuple([y])
+        for node in graph.nodes():
+            x, y = graph.nodes[node]['pos']
+            node_trace['x'] += tuple([x])
+            node_trace['y'] += tuple([y])
 
-            for node, adjacencies in enumerate(graph.adjacency()):
-                node_trace['marker']['color'] += tuple(["Yellow"])
-                node_info = adjacencies[0]
-                node_trace['text'] += tuple([node_info])
-                node_trace['marker']['opacity'] += tuple([0.8])
-                node_trace['marker']['size'] += tuple([len(node_info) * 11])
+        for node, adjacencies in enumerate(graph.adjacency()):
+            node_trace['marker']['color'] += tuple(["Yellow"])
+            node_info = adjacencies[0]
+            node_trace['text'] += tuple([node_info])
+            # node_trace['hovertext'] += tuple([])
+            node_trace['marker']['opacity'] += tuple([0.8])
+            node_trace['marker']['size'] += tuple([len(node_info) * 11])
 
-            fig = go.Figure(data=[edge_trace, node_trace],
-                            layout=go.Layout(
-                                title='<br>Граф компаний',
-                                titlefont_size=16,
-                                showlegend=False,
-                                hovermode='closest',
-                                margin=dict(b=20, l=5, r=5, t=40),
-                                annotations=[dict(
-                                    text="Python code: <a href='https://github.com/LuckyDmitry/Fintech-Securety-Superhero/'> https://github.com/LuckyDmitry/Fintech-Securety-Superhero/</a>",
-                                    showarrow=False,
-                                    xref="paper", yref="paper",
-                                    x=0.005, y=-0.002)],
-                                xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
-                                yaxis=dict(showgrid=False, zeroline=False, showticklabels=False))
-                            )
-            fig.show()
+        fig = go.Figure(data=[edge_trace, node_trace],
+                        layout=go.Layout(
+                            title='<br>Граф компаний',
+                            titlefont_size=16,
+                            showlegend=False,
+                            hovermode='closest',
+                            margin=dict(b=20, l=5, r=5, t=40),
+                            annotations=[dict(
+                                text="Python code: <a href='https://github.com/LuckyDmitry/Fintech-Securety-Superhero/'> https://github.com/LuckyDmitry/Fintech-Securety-Superhero/</a>",
+                                showarrow=False,
+                                xref="paper", yref="paper",
+                                x=0.005, y=-0.002)],
+                            xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
+                            yaxis=dict(showgrid=False, zeroline=False, showticklabels=False))
+                        )
+        fig.show()
 
 
 clean_company = edit_data.no_data_companies
@@ -155,8 +157,10 @@ clean_company = edit_data.no_data_companies
 def clean_company_graph(clean_company):
     if len(clean_company) > 15:
         clean_company = edit_companies(clean_company)
+        #print(parties)
     else:
         clean_company = [clean_company]
+    # os.chdir(os.getcwd() + "/pictures_of_clean_company")
 
     for i in range(len(clean_company)):
         graph = nx.Graph()
