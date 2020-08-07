@@ -4,7 +4,7 @@ from excel_handle import *
 
 if __name__ == '__main__':
 
-    unique_permissions = count_unique_permissions()
+    unique_permissions = unique_features()
 
     table_of_companies = ExcelHandler(unique_permissions)
 
@@ -21,4 +21,3 @@ if __name__ == '__main__':
 
         save_file_as_json(company_name, company_permissions)
 
-    table_of_companies.save_excel_file()
