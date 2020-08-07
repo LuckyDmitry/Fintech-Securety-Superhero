@@ -19,6 +19,7 @@ new_features = {'Identifier_Cookie_or_similar_Tech_3rdParty': "Cookie or web-bea
                 'Contact_Password_3rdParty':"You credential and passwords"
                }
 
+
 def list_of_files():
     directory = os.getcwd() + "\\files"
     files = os.listdir(directory)
